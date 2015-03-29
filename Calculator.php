@@ -81,10 +81,11 @@ class Calculator
 
                 }
                 unset($sum[$index]);
-                return $this->_process($sum, $operatorIndex, $answer);
+                var_dump($sum);
+                return $this->_process(array_values($sum), $operatorIndex, $answer);
             }
         }
-        return $this->_process($sum, ++$operatorIndex, $answer);
+        return $this->_process(array_values($sum), ++$operatorIndex, $answer);
     }
 
     /**
