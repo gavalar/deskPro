@@ -9,6 +9,18 @@
  */
 class Calculator
 {
+    const ADDITION = '+';
+    const SUBTRACTION = '-';
+    const MULTIPLICATION = '*';
+    const DIVISION = '/';
+
+    protected $_validOperators = array(
+        self::ADDITION,
+        self::SUBTRACTION,
+        self::MULTIPLICATION,
+        self::DIVISION,
+    );
+
     /**
      * __construct
      *
@@ -32,6 +44,41 @@ class Calculator
             return 0;
         }
 
-        die(var_dump($sum));
+        return $this->_process(array_shift($sum));
     }
+
+    /**
+     * Process the sum
+     *
+     * @param array $sum
+     * @return int
+     */
+    protected function _process(array $sum)
+    {
+        $answer = 0;
+
+        foreach ($sum as $index => $part) {
+            if ($this->_isOperator($part)) {
+                var_dump($sum[$index-1], $sum[$index+1], $sum[$index]);
+            }
+        }
+
+        return $answer;
+    }
+
+    /**
+     * Checks if the value is a valid operator
+     *
+     * @param string $value
+     * @return boolean
+     */
+    protected function _isOperator($value)
+    {
+        if (in_array($value, $this->_validOperators)) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
