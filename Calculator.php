@@ -68,17 +68,24 @@ class Calculator
             if ($this->_isOperator($part, $this->_validOperators[$operatorIndex])) {
                 if ($answer === 0) {
                     $answer = $this->_calculate($sum[$index-1], $sum[$index+1], $sum[$index]);
+                    unset($sum[$index-1]);
+                    unset($sum[$index+1]);
                 } else {
                     if ($index == 0) {
                         $answer = $this->_calculate($answer, $sum[$index+1], $sum[$index]);
+                        unset($sum[$index+1]);
                     } else {
                         $answer = $this->_calculate($answer, $sum[$index-1], $sum[$index]);
+                        unset($sum[$index-1]);
                     }
+
                 }
+                unset($sum[$index]);
+                var_dump($sum);
+                return $this->_process($sum, $operatorIndex, $answer);
             }
         }
-
-        return $answer;
+        return $this->_process($sum, ++$operatorIndex, $answer);
     }
 
     /**
