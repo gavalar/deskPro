@@ -44,22 +44,37 @@ class Calculator
             return 0;
         }
 
-        return $this->_process(array_shift($sum));
+        return $this->_process(array_shift($sum), 0);
     }
 
     /**
      * Process the sum
      *
      * @param array $sum
+     * @param int $operatorIndex
+     * @param int $currentAnswer
      * @return int
      */
-    protected function _process(array $sum)
+    protected function _process(array $sum, $operatorIndex = 0, $currentAnswer = 0)
     {
-        $answer = 0;
+        $answer = $currentAnswer;
+        if (empty($sum) || $operatorIndex >= count($this->_validOperators)) {
+            return $answer;
+        } elseif (!in_array($this->_validOperators[$operatorIndex], $sum)) {
+            return $this->_process($sum, ++$operatorIndex, $answer);
+        }
 
         foreach ($sum as $index => $part) {
-            if ($this->_isOperator($part)) {
-                $answer += $this->_calculate($sum[$index-1], $sum[$index+1], $sum[$index]);
+            if ($this->_isOperator($part, $this->_validOperators[$operatorIndex])) {
+                if ($answer === 0) {
+                    $answer = $this->_calculate($sum[$index-1], $sum[$index+1], $sum[$index]);
+                } else {
+                    if ($index == 0) {
+                        $answer = $this->_calculate($answer, $sum[$index+1], $sum[$index]);
+                    } else {
+                        $answer = $this->_calculate($answer, $sum[$index-1], $sum[$index]);
+                    }
+                }
             }
         }
 
@@ -70,11 +85,14 @@ class Calculator
      * Checks if the value is a valid operator
      *
      * @param string $value
+     * @param string $operator
      * @return boolean
      */
-    protected function _isOperator($value)
+    protected function _isOperator($value, $operator)
     {
-        if (in_array($value, $this->_validOperators)) {
+        if (!in_array($operator, $this->_validOperators)) {
+            return false;
+        } elseif ($operator === $value) {
             return true;
         }
 

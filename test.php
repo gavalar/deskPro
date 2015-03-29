@@ -18,6 +18,11 @@ class testCalculator extends PHPUnit_Framework_TestCase
         $this->_calculator = new Calculator();
     }
 
+    public function testBodmas()
+    {
+        $this->assertEquals(7, $this->_calculator->sum('1 + 1 * 3 + 3'));
+        $this->assertEquals(7, $this->_calculator->sum('1+1*3+3'));
+    }
     public function testAddition()
     {
         $this->assertEquals(2, $this->_calculator->sum('1 + 1'));
@@ -42,9 +47,4 @@ class testCalculator extends PHPUnit_Framework_TestCase
         $this->assertEquals(4, $this->_calculator->sum('8/2'));
     }
 
-    public function testBodmas()
-    {
-        //$this->assertEquals(7, $this->_calculator->sum('1 + 1 * 3 + 3'));
-        //$this->assertEquals(7, $this->_calculator->sum('1+1*3+3'));
-    }
 }
