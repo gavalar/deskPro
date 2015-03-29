@@ -59,7 +59,7 @@ class Calculator
 
         foreach ($sum as $index => $part) {
             if ($this->_isOperator($part)) {
-                var_dump($sum[$index-1], $sum[$index+1], $sum[$index]);
+                $answer += $this->_calculate($sum[$index-1], $sum[$index+1], $sum[$index]);
             }
         }
 
@@ -81,4 +81,28 @@ class Calculator
         return false;
     }
 
+
+    /**
+     * Calculates the value for the operator and the two integers
+     *
+     * @param int $value1
+     * @param int $value2
+     * @param string $operator
+     * @return int
+     */
+    protected function _calculate($value1, $value2, $operator)
+    {
+        switch ($operator) {
+            case self::ADDITION:
+                return $value1 + $value2;
+            case self::SUBTRACTION:
+                return $value1 - $value2;
+            case self::MULTIPLICATION:
+                return $value1 * $value2;
+            case self::DIVISION:
+                return $value1 / $value2;
+            default:
+                return 0;
+        }
+    }
 }
