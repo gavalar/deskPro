@@ -26,6 +26,13 @@ class Calculator
      */
     public function sum($sumString)
     {
-        return 0;
+        $sumString = preg_replace('/[^0-9|\+|\-|\*|\/]/', '', $sumString);
+
+        preg_match('/([0-9]+)*([\+|\-|\*|\/]+)([0-9]+)/', $sumString, $sum);
+        if (empty($sum)) {
+            return 0;
+        }
+
+        die(var_dump($sum));
     }
 }
