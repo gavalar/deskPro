@@ -15,10 +15,10 @@ class Calculator
     const DIVISION = '/';
 
     protected $_validOperators = array(
+        self::DIVISION,
+        self::MULTIPLICATION,
         self::ADDITION,
         self::SUBTRACTION,
-        self::MULTIPLICATION,
-        self::DIVISION,
     );
 
     /**
