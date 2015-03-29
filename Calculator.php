@@ -28,8 +28,7 @@ class Calculator
     {
         $sumString = preg_replace('/[^0-9|\+|\-|\*|\/]/', '', $sumString);
 
-        preg_match('/([0-9]+)*([\+|\-|\*|\/]+)([0-9]+)/', $sumString, $sum);
-        if (empty($sum)) {
+        if (preg_match_all('/[0-9|\*|\/|\+\-]/', $sumString, $sum) === false) {
             return 0;
         }
 
