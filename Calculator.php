@@ -81,7 +81,6 @@ class Calculator
 
                 }
                 unset($sum[$index]);
-                var_dump($sum);
                 return $this->_process($sum, $operatorIndex, $answer);
             }
         }
